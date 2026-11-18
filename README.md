@@ -1,5 +1,7 @@
 # ghost
 
+![ghost: click a map to set your iPhone's location](docs/screenshot.jpg)
+
 Set your iPhone's GPS location by clicking a map on your Mac. Teleport to a
 point, or walk a route at a realistic speed.
 
