@@ -1,0 +1,17 @@
+{
+  "name": "ghost",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Set your iPhone's GPS location from a map on your Mac",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "doctor": "node doctor.js",
+    "reveal": "node reveal.js",
+    "service": "./service.sh install",
+    "service:status": "./service.sh status",
+    "service:stop": "./service.sh uninstall",
+    "service:logs": "./service.sh logs"
+  },
+  "engines": { "node": ">=18" }
+}

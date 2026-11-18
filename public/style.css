@@ -1,0 +1,305 @@
+:root {
+  --bg: #0b0e13;
+  --panel: #12161f;
+  --panel-2: #191f2b;
+  --line: #232b3a;
+  --text: #e6ebf5;
+  --muted: #8794ab;
+  --accent: #4da3ff;
+  --accent-dim: #1f3a5f;
+  --good: #3ddc97;
+  --warn: #ffb84d;
+  --bad: #ff6b6b;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 ui-sans-serif, -apple-system, "SF Pro Text", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------- sidebar */
+#side {
+  width: 340px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  z-index: 500;
+}
+header {
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+}
+h1 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+h1 span { color: var(--accent); }
+.sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+.scroll { overflow-y: auto; flex: 1; padding: 14px 16px 20px; }
+section { margin-bottom: 20px; }
+.label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--panel-2);
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.dot.on { background: var(--good); box-shadow: 0 0 8px var(--good); }
+.dot.busy { background: var(--warn); animation: pulse 1s infinite; }
+.dot.err { background: var(--bad); }
+@keyframes pulse { 50% { opacity: 0.3; } }
+
+button, select, input {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 11px;
+  width: 100%;
+}
+button { cursor: pointer; transition: background 0.12s, border-color 0.12s; }
+button:hover:not(:disabled) { background: #222a39; border-color: #34405a; }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #06131f; font-weight: 600; }
+button.primary:hover:not(:disabled) { background: #6fb5ff; }
+button.danger { color: var(--bad); }
+.row { display: flex; gap: 8px; }
+.row > * { flex: 1; }
+
+.device { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.device b { color: var(--text); font-weight: 500; }
+
+ul.list { list-style: none; margin: 0; padding: 0; }
+ul.list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--panel-2);
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+ul.list li .name { flex: 1; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ul.list li .name:hover { color: var(--accent); }
+ul.list li .x { width: auto; padding: 2px 6px; background: none; border: none; color: var(--muted); }
+ul.list li .x:hover { color: var(--bad); background: none; }
+.empty { color: var(--muted); font-size: 12px; font-style: italic; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.check input { width: auto; }
+
+#log {
+  background: #080b10;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  height: 120px;
+  overflow-y: auto;
+  font: 11px/1.6 ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+#log .err { color: var(--bad); }
+#log .ok { color: var(--good); }
+
+/* ----------------------------------------------------------------- map */
+#map { flex: 1; background: #0b0e13; }
+.leaflet-container { background: #0b0e13; font: inherit; }
+.leaflet-bar a, .leaflet-control-attribution {
+  background: var(--panel) !important;
+  color: var(--muted) !important;
+  border-color: var(--line) !important;
+}
+.leaflet-control-attribution a { color: var(--muted) !important; }
+
+#search-wrap {
+  position: absolute;
+  top: 14px;
+  left: 356px;
+  z-index: 600;
+  width: 320px;
+}
+#search { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5); }
+#results {
+  margin-top: 4px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+#results div { padding: 8px 11px; cursor: pointer; font-size: 13px; border-bottom: 1px solid var(--line); }
+#results div:last-child { border-bottom: none; }
+#results div:hover { background: var(--panel-2); }
+
+#hud {
+  position: absolute;
+  bottom: 16px;
+  left: 356px;
+  z-index: 600;
+  background: rgba(18, 22, 31, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: 12px/1.6 ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--muted);
+}
+#hud b { color: var(--text); font-weight: 500; }
+
+.ghost-pin {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #06131f;
+  box-shadow: 0 0 0 2px var(--accent), 0 0 18px var(--accent);
+}
+.wp-pin {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--warn);
+  border: 2px solid #06131f;
+}
+
+/* ------------------------------------------------------- phone layout */
+/* On a phone the map leads and the controls become a sheet you drag up. */
+@media (max-width: 760px) {
+  body { flex-direction: column; }
+
+  #map { flex: 1; min-height: 0; order: 1; }
+
+  #side {
+    order: 2;
+    width: 100%;
+    max-height: 46vh;
+    border-right: none;
+    border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+    transition: max-height 0.22s ease;
+  }
+  #side.collapsed { max-height: 58px; }
+
+  header {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  header .sub { display: none; }
+  .mini { display: block; }
+  h1 { font-size: 15px; }
+
+  /* grab handle */
+  header::before {
+    content: "";
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 4px;
+    border-radius: 2px;
+    background: var(--line);
+  }
+
+  .scroll { padding: 12px 16px 24px; }
+
+  /* thumb-sized targets */
+  button, select, input { padding: 13px 12px; font-size: 16px; } /* 16px stops iOS zooming on focus */
+  ul.list li { padding: 12px 12px; }
+
+  /* Sit below the status bar / Dynamic Island. In Home Screen mode the page
+     runs full-bleed under it, so the inset is what keeps this clear of it;
+     the 0px fallback preserves the old position in a normal browser. */
+  #search-wrap {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    /* --safe-top exists so this is testable off-device: override it to a
+       phone's inset (e.g. 59px) and the bar should drop below the island. */
+    top: calc(var(--safe-top, env(safe-area-inset-top, 0px)) + 12px);
+  }
+  #hud { display: none; }            /* replaced by the header readout */
+  .leaflet-control-zoom { display: none; }  /* pinch instead */
+  #log { height: 84px; }
+}
+
+@media (max-width: 760px) {
+  #side { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  /* Keep the collapsed sheet tappable above the home indicator too. */
+  #side.collapsed { max-height: calc(58px + env(safe-area-inset-bottom, 0px)); }
+}
+
+.mini {
+  display: none;
+  font: 11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--muted);
+  text-align: right;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#revert {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--warn);
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+.revert-label { font-size: 12px; color: var(--muted); }
+.revert-label b { color: var(--text); font-variant-numeric: tabular-nums; }
+#revert.soon { border-left-color: var(--bad); }
+#revert.soon .revert-label b { color: var(--bad); }
+
+#needkey {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(8, 11, 16, 0.94);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.nk-card {
+  max-width: 380px; background: var(--panel);
+  border: 1px solid var(--line); border-left: 3px solid var(--warn);
+  border-radius: 12px; padding: 22px;
+}
+.nk-card h2 { margin: 0 0 8px; font-size: 17px; }
+.nk-card p { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+.nk-card ol { color: var(--muted); font-size: 13px; line-height: 1.9; padding-left: 20px; margin: 0; }
+.nk-card b { color: var(--text); }
+.nk-note { margin-top: 14px !important; font-size: 12px !important; }
+
+.dot.warn { background: var(--warn); box-shadow: 0 0 8px var(--warn); }

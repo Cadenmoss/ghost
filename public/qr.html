@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ghost — set up your phone</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { display: block; padding: 32px 24px 48px; overflow: auto; }
+    .wrap { max-width: 560px; margin: 0 auto; }
+    h1 { font-size: 20px; margin-bottom: 4px; }
+    .lead { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+    .card {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    }
+    .card.best { border-color: var(--accent); }
+    .tag {
+      display: inline-block; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .card.best .tag { color: var(--accent); }
+    .qr { background: #fff; padding: 12px; border-radius: 8px; width: max-content; margin: 0 auto 14px; }
+    .qr img, .qr canvas { display: block; }
+    code {
+      display: block; word-break: break-all; font-size: 11px; color: var(--muted);
+      background: var(--panel-2); border-radius: 6px; padding: 9px 11px; margin-top: 10px;
+    }
+    ol { color: var(--muted); font-size: 13px; line-height: 1.8; padding-left: 20px; }
+    b { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Set up your phone</h1>
+    <p class="lead">Point the iPhone camera at a code below, then tap the banner.</p>
+    <div id="cards"></div>
+    <div class="card">
+      <span class="tag">Then: make it an app</span>
+      <ol>
+        <li>The key is saved — next time the plain address works.</li>
+        <li>Tap <b>Share → Add to Home Screen</b>. You get a ghost icon that opens
+            full-screen with no Safari chrome — it behaves like an app.</li>
+        <li>Tap <b>Connect</b>, then tap the map and <b>Teleport here</b>.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <span class="tag">Alternative: install a profile</span>
+      <ol>
+        <li>Scan the code below instead. Safari downloads a configuration profile.</li>
+        <li>Open <b>Settings → Profile Downloaded → Install</b>.</li>
+        <li>Same icon, same result — but it installs a configuration profile, so
+            "Add to Home Screen" above is the lighter option.</li>
+      </ol>
+      <div class="qr" id="cfgQr"></div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const links = __LINKS__;
+    const box = document.getElementById("cards");
+    links.forEach((l) => {
+      const card = document.createElement("div");
+      card.className = "card" + (l.tailnet ? " best" : "");
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = l.name;
+      const qr = document.createElement("div");
+      qr.className = "qr";
+      const code = document.createElement("code");
+      code.textContent = l.url;
+      card.append(tag, qr, code);
+      box.appendChild(card);
+      new QRCode(qr, { text: l.url, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+    });
+    if (!links.length) box.innerHTML = '<div class="card">No network interfaces found.</div>';
+
+    // The profile download uses the same address, different path.
+    const best = links[0];
+    if (best) {
+      const cfg = best.url.replace(/\/\?k=/, "/ghost.mobileconfig?k=");
+      new QRCode(document.getElementById("cfgQr"), {
+        text: cfg, width: 170, height: 170, correctLevel: QRCode.CorrectLevel.M,
+      });
+    }
+  </script>
+</body>
+</html>

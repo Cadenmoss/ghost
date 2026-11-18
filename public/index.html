@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ghost" />
+  <meta name="theme-color" content="#0b0e13" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <link rel="icon" href="icon.png" />
+  <title>ghost — iPhone location</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="side">
+    <header>
+      <div>
+        <h1>gh<span>o</span>st</h1>
+        <div class="sub">iPhone location simulator</div>
+      </div>
+      <span class="mini" id="miniCoord">real GPS</span>
+    </header>
+
+    <div class="scroll">
+      <section>
+        <div class="label">Device <span class="pill"><i class="dot" id="dot"></i><span id="statusText">idle</span></span></div>
+        <div class="row">
+          <button id="btnConnect" class="primary">Connect</button>
+          <button id="btnDisconnect" disabled>Disconnect</button>
+        </div>
+        <div class="device" id="deviceInfo">No device connected.</div>
+      </section>
+
+      <section>
+        <div class="label">Location</div>
+        <div class="grid2">
+          <div class="field"><label>Latitude</label><input id="lat" placeholder="37.7749" /></div>
+          <div class="field"><label>Longitude</label><input id="lon" placeholder="-122.4194" /></div>
+        </div>
+        <div style="height:8px"></div>
+        <button id="btnSet" class="primary" disabled>Teleport here</button>
+        <div style="height:8px"></div>
+        <div class="row">
+          <button id="btnSave">Save spot</button>
+          <button id="btnReset" class="danger" disabled>Real GPS</button>
+        </div>
+        <div id="revert" hidden>
+          <span class="revert-label">Reverts to real GPS in <b id="revertLeft">—</b></span>
+          <div class="row" style="margin-top:7px">
+            <button id="btnExtend">Restart 12h</button>
+            <button id="btnHold">Keep until I stop</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="label">Saved spots</div>
+        <ul class="list" id="favs"></ul>
+      </section>
+
+      <section>
+        <div class="label">
+          Trip
+        </div>
+        <div class="field"><label>From</label><input id="tripFrom" placeholder="address or place" /></div>
+        <div style="height:8px"></div>
+        <div class="field"><label>To</label><input id="tripTo" placeholder="address or place" /></div>
+        <div style="height:8px"></div>
+        <div class="field"><label>Take this long</label><input id="tripTime" placeholder="45 min · 1h30m · 2 hours" /></div>
+        <div style="height:10px"></div>
+        <button id="btnTrip" class="primary" disabled>Drive it</button>
+        <div id="tripInfo" class="device" hidden></div>
+      </section>
+
+      <section>
+        <div class="label">
+          Custom route
+          <span class="pill" id="routePill" style="display:none">—</span>
+        </div>
+        <button id="btnRouteMode">Draw route on map</button>
+        <div style="height:8px"></div>
+        <div class="grid2">
+          <div class="field">
+            <label>Speed</label>
+            <select id="speed">
+              <option value="1.4">Stroll · 1.4 km/h</option>
+              <option value="5" selected>Walk · 5 km/h</option>
+              <option value="11">Run · 11 km/h</option>
+              <option value="20">Bike · 20 km/h</option>
+              <option value="50">Drive · 50 km/h</option>
+              <option value="110">Highway · 110 km/h</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Wander (m)</label>
+            <input id="jitter" type="number" value="3" min="0" max="50" />
+          </div>
+        </div>
+        <div style="height:10px"></div>
+        <label class="check"><input type="checkbox" id="loop" /> Loop back to start</label>
+        <div style="height:6px"></div>
+        <label class="check"><input type="checkbox" id="pingPong" checked /> Reverse at the end</label>
+        <div style="height:10px"></div>
+        <div class="row">
+          <button id="btnRouteStart" class="primary" disabled>Start</button>
+          <button id="btnRouteStop" disabled>Stop</button>
+        </div>
+        <div style="height:6px"></div>
+        <button id="btnRouteClear">Clear waypoints</button>
+      </section>
+
+      <section>
+        <div class="label">Activity</div>
+        <div id="log"></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="search-wrap">
+    <input id="search" placeholder="Search a place…  (⏎)" autocomplete="off" />
+    <div id="results" style="display:none"></div>
+  </div>
+
+  <div id="hud">
+    <b id="hudCoord">—</b> &nbsp;·&nbsp; <span id="hudMode">real GPS</span>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

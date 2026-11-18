@@ -1,0 +1,9 @@
+{
+  "note": "Versions ghost was verified against. doctor warns when these drift. On iOS 27 the tailnet path is refused by the phone (see README).",
+  "pymobiledevice3": "11.12.5",
+  "ios": "27.0.1",
+  "macos": "27.0.1",
+  "node": "v26.0.0",
+  "verified": "2026-11-07",
+  "phone": "iPhone 18 Pro (iPhone19,2)"
+}

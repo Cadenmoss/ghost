@@ -1,0 +1,7 @@
+{
+  "udid": "YOUR-IPHONE-UDID",
+  "tailnetHost": "100.x.y.z",
+  "ladder": ["usb", "wifi", "tailnet"],
+  "autoRevertHours": 12,
+  "heartbeatSeconds": 30
+}

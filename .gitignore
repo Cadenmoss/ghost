@@ -1,0 +1,14 @@
+# Credentials: never commit these.
+# Device pair record (private keys + EscrowBag)
+.pair/
+# Shared key for --lan access
+.ghost-token
+# Embeds the .ghost-token key
+ghost.mobileconfig
+# Personal device config (iPhone UDID, tailnet IP); copy ghost.config.example.json
+ghost.config.json
+node_modules/
+probe-results.json
+# Third-party checkout, fetched by vendor/prepare-stikdebug.sh
+vendor/StikDebug/
+.DS_Store
